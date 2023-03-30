@@ -1,4 +1,6 @@
-﻿namespace ChatClient;
+﻿using Communications;
+
+namespace ChatClient;
 
 public partial class MainPage : ContentPage
 {
