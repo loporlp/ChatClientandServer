@@ -1,1 +1,1 @@
-C:\Users\mason\source\repos\assignment-seven---chatting-ms_office_dev_team\Networking_and_Logging\ChatClient\ChatClient.csproj;x64
+C:\Users\Dhruv\Source\Repos\As7\Networking_and_Logging\ChatClient\ChatClient.csproj;x64

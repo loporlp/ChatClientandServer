@@ -33,7 +33,7 @@ public partial class MainPage : ContentPage
 
     void onConnect(Networking channel)
     {
-        this.channel.Send($"Command Name {name.Text}");
+        this.channel.Send("Command Name " + this.name.Text.Trim());
     }
 
     void onDisconnect(Networking channel)
@@ -54,7 +54,7 @@ public partial class MainPage : ContentPage
         
         try
         {
-            channel = new Networking(NullLogger.Instance, onConnect, onDisconnect, onMessage, '.');
+            channel = new Networking(NullLogger.Instance, onConnect, onDisconnect, onMessage, '\n');
             channel.Connect(address.Text, 11000);
             addMessageAndScroll("Connected To Server!");
             channel.AwaitMessagesAsync(infinite: true);
