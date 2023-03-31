@@ -20,16 +20,14 @@
 
                     <Entry x:Name="address"
 						Placeholder="Enter text"
-						Completed="addressEntered" 
 						Text="localhost"/>
                 </StackLayout>
 
                 <StackLayout>
-                    <Label Text="Enter Your Name"/>
+                    <Label x:Name="nameLabel" Text="Enter Your Name"/>
 
                     <Entry x:Name="name"
-						Placeholder="Name"
-						Completed="nameEntered" />
+						Placeholder="Name" />
                 </StackLayout>
 
                 <Button
@@ -41,7 +39,7 @@
                 <StackLayout
                 Spacing="5">
                     <Label Text="Enter Your Message"/>
-                    <Entry x:Name="Send"
+                    <Entry x:Name="send"
                         Placeholder="Message"
                        Completed="messageComplete"/>
                 </StackLayout>

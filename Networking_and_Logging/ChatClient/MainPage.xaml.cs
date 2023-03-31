@@ -2,63 +2,106 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
+using System.Threading.Channels;
 
 namespace ChatClient;
 
 public partial class MainPage : ContentPage
 {
 
-   private ObservableCollection<string> clientList;
+    private ObservableCollection<string> clientList;
+    private ObservableCollection<string> messages;
+    private Networking channel;
 
-    
+
+
 
     public MainPage()
     {
         InitializeComponent();
-        //	Networking channel = new Networking(NullLogger.Instance, onConnect(), onDisconnect(), onMessage(), '.');
-        clientList = new ObservableCollection<string>{ "Maosn", "1 Hour", "1:30 Hour", "2 Hours" };
+        clientList = new ObservableCollection<string>();
+        messages = new ObservableCollection<string>();
+        MessageList.ItemsSource = messages;
         ClientList.ItemsSource = clientList;
     }
 
-    ReportMessageArrived onMessage()
+    void onMessage(Networking channel, string message)
     {
-        throw new NotImplementedException();
+        addMessageAndScroll(message);
     }
 
-    ReportConnectionEstablished onConnect()
+    void onConnect(Networking channel)
     {
-        throw new NotImplementedException();
+        byte[] bytes = Encoding.Default.GetBytes(name.Text);
+        string newName = Encoding.UTF8.GetString(bytes);
+        channel.Send($"Command Name {newName}");
     }
 
-    ReportDisconnect onDisconnect()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void addressEntered(object sender, EventArgs e)
+    void onDisconnect(Networking channel)
     {
         throw new NotImplementedException();
     }
 
     private void connectToServer(object sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        if(name.Text is null)
+        {
+            nameLabel.TextColor = new Color(255, 0, 0);
+            return;
+        }
+        nameLabel.TextColor = new Color(0, 0, 0);
+
+        addMessageAndScroll("Attempting to Connect to Server");
+        
+        try
+        {
+            channel = new Networking(NullLogger.Instance, onConnect, onDisconnect, onMessage, '.');
+            channel.Connect(address.Text, 11000);
+            addMessageAndScroll("Connected To Server!");
+            channel.AwaitMessagesAsync(infinite: true);
+
+        }
+        catch (Exception)
+        {
+            addMessageAndScroll("Server Gone :(");
+        }
     }
 
     private void retrieveParticipants(object sender, EventArgs e)
     {
+        try
+        {
+            channel.Send("Command Participants");
+        }
+        catch (Exception)
+        {
+            addMessageAndScroll("Server Gone :(");
+        }
+
         clientList.Add("dd");
         ClientList.ScrollTo("dd", new ScrollToPosition(), true);
     }
 
     private void messageComplete(object sender, EventArgs e)
     {
-        Send.Text = string.Empty;
+        send.Text = string.Empty;
+
+        try
+        {
+            channel.Send(send.Text);
+        }
+        catch (Exception)
+        {
+            addMessageAndScroll("Server Gone :(");
+        }
+
     }
 
-    private void nameEntered(object sender, EventArgs e)
+    private void addMessageAndScroll(string message)
     {
-        throw new NotImplementedException();
+        messages.Add(message);
+        MessageList.ScrollTo(message, new ScrollToPosition(), true);
     }
 }
 
