@@ -33,9 +33,7 @@ public partial class MainPage : ContentPage
 
     void onConnect(Networking channel)
     {
-        byte[] bytes = Encoding.Default.GetBytes(name.Text);
-        string newName = Encoding.UTF8.GetString(bytes);
-        channel.Send($"Command Name {newName}");
+        channel.Send($"Command Name {name.Text}");
     }
 
     void onDisconnect(Networking channel)
