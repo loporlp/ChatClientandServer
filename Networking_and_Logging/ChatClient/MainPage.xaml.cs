@@ -42,8 +42,18 @@ public partial class MainPage : ContentPage
 
     private void connectToServer(object sender, EventArgs e)
     {
-        clientList.Add("SDFS");
-       // ClientList.ItemsSource = clientList;
+        throw new NotImplementedException();
+    }
+
+    private void retrieveParticipants(object sender, EventArgs e)
+    {
+        clientList.Add("dd");
+        ClientList.ScrollTo("dd", new ScrollToPosition(), true);
+    }
+
+    private void messageComplete(object sender, EventArgs e)
+    {
+        Send.Text = string.Empty;
     }
 
     private void nameEntered(object sender, EventArgs e)

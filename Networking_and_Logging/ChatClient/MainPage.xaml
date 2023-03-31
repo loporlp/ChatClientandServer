@@ -3,70 +3,81 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 x:Class="ChatClient.MainPage"
 			 Title = "Chat">
-
-    <HorizontalStackLayout
+    <VerticalStackLayout
+        Spacing="20"
+        HorizontalOptions="Center">
+        <HorizontalStackLayout
         Spacing="50">
 
-        <VerticalStackLayout
+            <VerticalStackLayout
 			Spacing="30"
 			Padding="30,0"
 			VerticalOptions="Fill">
-            <StackLayout 
+                <StackLayout 
 				Spacing ="3">
 
-                <Label Text="Server Name/Address" HorizontalOptions="Fill"/>
+                    <Label Text="Server Name/Address" HorizontalOptions="Center"/>
 
-                <Entry x:Name="address"
+                    <Entry x:Name="address"
 						Placeholder="Enter text"
 						Completed="addressEntered" 
 						Text="localhost"/>
-            </StackLayout>
+                </StackLayout>
 
-            <StackLayout>
-                <Label Text="Your Name"/>
+                <StackLayout>
+                    <Label Text="Enter Your Name"/>
 
-                <Entry x:Name="name"
-						Placeholder="Enter Your Name"
+                    <Entry x:Name="name"
+						Placeholder="Name"
 						Completed="nameEntered" />
-            </StackLayout>
+                </StackLayout>
 
-            <Button
+                <Button
                 x:Name="connectButton"
                 Text="Connect To Server"
                 Clicked="connectToServer"
                 />
 
-            <Label
-				Text="Welcome to .NET Multi-platform App UI"
-				SemanticProperties.HeadingLevel="Level2"
-				SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-				FontSize="18"
-				HorizontalOptions="Center" />
+                <StackLayout
+                Spacing="5">
+                    <Label Text="Enter Your Message"/>
+                    <Entry x:Name="Send"
+                        Placeholder="Message"
+                       Completed="messageComplete"/>
+                </StackLayout>
 
-        </VerticalStackLayout>
+            </VerticalStackLayout>
 
-        <VerticalStackLayout
-            Spacing="0"
+            <VerticalStackLayout
+            Spacing="15"
             Padding="10">
-            <ListView x:Name="ClientList" ItemsSource="{Binding clientList}" HeightRequest="200" BackgroundColor="White">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Label x:Name="listItems" Text="{Binding}" TextColor="Black" HorizontalOptions="Center"></Label>
-                            
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                
+                <ListView x:Name="ClientList" ItemsSource="{Binding clientList}" HeightRequest="200" WidthRequest="200" BackgroundColor="White">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label x:Name="listItems" Text="{Binding}" TextColor="Black" HorizontalOptions="Center"></Label>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <Label Text="Participants"/>
-            
-        </VerticalStackLayout>
-        
+                <Button Text="Retrieve Participants" Clicked="retrieveParticipants"/>
 
-    </HorizontalStackLayout>
+            </VerticalStackLayout>
 
 
+        </HorizontalStackLayout>
 
+        <ListView x:Name="MessageList" ItemsSource="{Binding messages}" HeightRequest="200" WidthRequest="500" BackgroundColor="White" HorizontalOptions="Center">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label x:Name="listItems" Text="{Binding}" TextColor="Black" HorizontalOptions="Center"></Label>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
+    </VerticalStackLayout>
 </ContentPage>
