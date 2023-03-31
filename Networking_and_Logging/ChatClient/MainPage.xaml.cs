@@ -33,7 +33,7 @@ public partial class MainPage : ContentPage
 
     void onConnect(Networking channel)
     {
-        channel.Send($"Command Name {name.Text}");
+        this.channel.Send($"Command Name {name.Text}");
     }
 
     void onDisconnect(Networking channel)
