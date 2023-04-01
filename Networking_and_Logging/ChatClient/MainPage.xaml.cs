@@ -15,6 +15,9 @@ public partial class MainPage : ContentPage
     private ObservableCollection<string> messages;
     private Networking channel;
 
+    /// <summary>
+    ///     Initializes the page and all fields
+    /// </summary>
     public MainPage()
     {
         InitializeComponent();
@@ -117,6 +120,11 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    ///     Sends a message to the server through the network object
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void messageComplete(object sender, EventArgs e)
     {
         try
@@ -132,6 +140,11 @@ public partial class MainPage : ContentPage
 
     }
 
+    /// <summary>
+    ///     Helper method that adds a message
+    ///     to the message list then auto scrolls to it
+    /// </summary>
+    /// <param name="message"> message to add </param>
     private void addMessageAndScroll(string message)
     {
         messages.Add(message);
