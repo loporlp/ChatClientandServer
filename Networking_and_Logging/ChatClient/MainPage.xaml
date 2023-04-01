@@ -35,6 +35,12 @@
                 Text="Connect To Server"
                 Clicked="connectToServer"
                 />
+                <Label
+                 x:Name="connectLabel"
+                 Text="Connected to Server!"
+                 IsVisible="False"
+                 Scale="1.5"/>
+
 
                 <StackLayout
                 Spacing="5">
@@ -49,7 +55,7 @@
             <VerticalStackLayout
             Spacing="15"
             Padding="10">
-                
+
                 <ListView x:Name="ClientList" ItemsSource="{Binding clientList}" HeightRequest="200" WidthRequest="200" BackgroundColor="White">
                     <ListView.ItemTemplate>
                         <DataTemplate>

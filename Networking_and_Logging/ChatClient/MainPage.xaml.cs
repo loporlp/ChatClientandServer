@@ -1,5 +1,6 @@
 ﻿using Communications;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
@@ -14,9 +15,6 @@ public partial class MainPage : ContentPage
     private ObservableCollection<string> messages;
     private Networking channel;
 
-
-
-
     public MainPage()
     {
         InitializeComponent();
@@ -26,21 +24,55 @@ public partial class MainPage : ContentPage
         ClientList.ItemsSource = clientList;
     }
 
+    /// <summary>
+    ///     Method to be called when Client receives a message
+    /// </summary>
+    /// <param name="channel"> the channel the message is recieved on</param>
+    /// <param name="message"> the message recieved</param>
     void onMessage(Networking channel, string message)
     {
+        //Check if message is a command and update clientList if it is
+        if(message.StartsWith("Command Participants"))
+        {
+            string[] participants = message.Split(',');
+            clientList.Clear();
+            for(int i = 1; i < participants.Length; i++)
+            {
+                clientList.Add(participants[i]);
+            }
+
+            ClientList.ScrollTo(participants[participants.Length - 1], new ScrollToPosition(), true);
+            return;
+        }
+
         addMessageAndScroll(message);
     }
 
+    /// <summary>
+    ///     Method to be called when client connects to server
+    /// </summary>
+    /// <param name="channel"> the channel connected to </param>
     void onConnect(Networking channel)
     {
         this.channel.Send("Command Name " + this.name.Text.Trim());
     }
 
+    /// <summary>
+    ///     Method to be called when client is disconnected from server
+    /// </summary>
+    /// <param name="channel"></param>
     void onDisconnect(Networking channel)
     {
-        throw new NotImplementedException();
+        addMessageAndScroll($"Disconnected from {channel.ID}");
+        connectButton.IsVisible = true;
+        connectLabel.IsVisible = false;
     }
 
+    /// <summary>
+    ///     Attempts to connect to server when button is clicked
+    /// </summary>
+    /// <param name="sender"> unused </param>
+    /// <param name="e"> unused </param>
     private void connectToServer(object sender, EventArgs e)
     {
         if(name.Text is null)
@@ -58,6 +90,8 @@ public partial class MainPage : ContentPage
             channel.Connect(address.Text, 11000);
             addMessageAndScroll("Connected To Server!");
             channel.AwaitMessagesAsync(infinite: true);
+            connectButton.IsVisible = false;
+            connectLabel.IsVisible = true;
 
         }
         catch (Exception)
@@ -66,6 +100,11 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    ///     Populates participant list when button is clicked
+    /// </summary>
+    /// <param name="sender"> unused </param>
+    /// <param name="e"> unused </param>
     private void retrieveParticipants(object sender, EventArgs e)
     {
         try
@@ -76,15 +115,10 @@ public partial class MainPage : ContentPage
         {
             addMessageAndScroll("Server Gone :(");
         }
-
-        clientList.Add("dd");
-        ClientList.ScrollTo("dd", new ScrollToPosition(), true);
     }
 
     private void messageComplete(object sender, EventArgs e)
     {
-        send.Text = string.Empty;
-
         try
         {
             channel.Send(send.Text);
@@ -94,12 +128,14 @@ public partial class MainPage : ContentPage
             addMessageAndScroll("Server Gone :(");
         }
 
+        send.Text = string.Empty;
+
     }
 
     private void addMessageAndScroll(string message)
     {
         messages.Add(message);
-        MessageList.ScrollTo(message, new ScrollToPosition(), true);
+        MessageList.ScrollTo(message, new ScrollToPosition(), false);
     }
 }
 
