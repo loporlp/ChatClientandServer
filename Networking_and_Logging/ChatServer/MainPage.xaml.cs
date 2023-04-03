@@ -14,8 +14,6 @@ namespace ChatServer
     {
         int count = 0;
         private Dictionary<Networking, string> clientDict;
-        private ObservableList<string> obvList;
-        private ObservableList<string> messagesObvList;
         private Networking channel;
 
         public MainPage()
@@ -24,10 +22,6 @@ namespace ChatServer
             channel = new(NullLogger.Instance, onConnect, onDisconnect, onMessage, '\n');
             channel.WaitForClients(11000, true);
             clientDict = new Dictionary<Networking, string>();
-            obvList = new ObservableList<string>(clientDict.Values);
-            ClientList.ItemsSource = obvList;
-            messagesObvList = new ObservableList<string>();
-            MessageList.ItemsSource = messagesObvList;
 
 
             //From the following website to get IP: https://stackoverflow.com/questions/6803073/get-local-ip-address
@@ -64,7 +58,7 @@ namespace ChatServer
 
         public void onMessage(Networking channel, string message)
         {
-            addMessageAndScroll(message);
+            Dispatcher.Dispatch(() => MessageList.Text =  MessageList.Text += $"{channel.ID}: {message} \n");
 
             if(message.StartsWith("Command Name"))
             {
@@ -130,15 +124,5 @@ namespace ChatServer
             channel.Disconnect();
         }
 
-        /// <summary>
-        ///     Helper method that adds a message
-        ///     to the message list then auto scrolls to it
-        /// </summary>
-        /// <param name="message"> message to add </param>
-        private void addMessageAndScroll(string message)
-        {
-            messagesObvList.Add(message);
-            MessageList.ScrollTo(message, new ScrollToPosition(), false);
-        }
     }
 }

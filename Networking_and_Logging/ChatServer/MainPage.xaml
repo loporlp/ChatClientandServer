@@ -13,15 +13,9 @@
 			Padding="20">
                     <Label Text="PARTICIPANTS" HorizontalOptions="Center" FontSize="20" Margin="10"></Label>
                     
-                    <ListView x:Name="ClientList" ItemsSource="{Binding obvList}" HeightRequest="400" WidthRequest="250" BackgroundColor="MintCream">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Label x:Name="listItems" Text="{Binding}" TextColor="MintCream" HorizontalOptions="Center"></Label>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <Entry x:Name="ClientList"  HeightRequest="400" WidthRequest="250" BackgroundColor="MintCream" VerticalTextAlignment="Start" IsEnabled="False">
+                       
+                    </Entry>
 
 
                     <BoxView Color="White" HeightRequest="50" WidthRequest="1" />
@@ -56,17 +50,9 @@
 
                     <HorizontalStackLayout>
 
-
-
-                        <ListView x:Name="MessageList" ItemsSource="{Binding messagesObvList}" HeightRequest="500" WidthRequest="500" BackgroundColor="MintCream" Margin="20" HorizontalOptions="Center">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Label x:Name="listItems" Text="{Binding}" TextColor="Black" HorizontalOptions="Center"></Label>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        <Entry x:Name="MessageList"  HeightRequest="500" WidthRequest="500" BackgroundColor="MintCream" Margin="20" VerticalTextAlignment="Start" IsEnabled="False">
+                       
+                    </Entry>
 
                     </HorizontalStackLayout>
                     
