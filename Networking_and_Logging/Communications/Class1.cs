@@ -1,8 +1,7 @@
-﻿using System;
-
-public class Class1
+﻿namespace Communications
 {
-	public Class1()
-	{
-	}
+    public class Class1
+    {
+
+    }
 }
