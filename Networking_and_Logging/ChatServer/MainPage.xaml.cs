@@ -72,6 +72,7 @@ namespace ChatServer
                 }
 
                 channel.Send(partPacket);
+                return;
 
             }
 
@@ -138,7 +139,7 @@ namespace ChatServer
                 {
                     try
                     {
-                      client.Send(message);
+                      client.Send($"{channel.ID}: {message}");
                     }
                     catch (Exception)
                     {
