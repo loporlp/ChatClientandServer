@@ -30,7 +30,7 @@
     <AppXManifest Include="C:\Users\Dhruv\Source\Repos\AS7\Networking_and_Logging\ChatClient\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-04-03T00:30:51.114</Modified>
+      <Modified>2023-04-03T06:33:31.390</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -44,11 +44,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dhruv\Source\Repos\AS7\Networking_and_Logging\ChatClient\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\ChatClient.dll">
       <PackagePath>ChatClient.dll</PackagePath>
-      <Modified>2023-04-03T00:30:49.444</Modified>
+      <Modified>2023-04-03T06:33:30.607</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dhruv\Source\Repos\AS7\Networking_and_Logging\ChatClient\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>ChatClient.exe</PackagePath>
-      <Modified>2023-04-03T00:30:49.463</Modified>
+      <Modified>2023-04-03T06:33:30.616</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dhruv\.nuget\packages\microsoft.netcore.app.runtime.win-x64\7.0.4\runtimes\win-x64\lib\net7.0\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -924,7 +924,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Dhruv\Source\Repos\AS7\Networking_and_Logging\ChatClient\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\ChatClient.deps.json">
       <PackagePath>ChatClient.deps.json</PackagePath>
-      <Modified>2023-04-03T00:30:51.018</Modified>
+      <Modified>2023-04-03T06:33:31.313</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files\dotnet\packs\Microsoft.Maui.Controls.Ref.win\7.0.59\ref\net7.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.pri">
       <PackagePath>Microsoft.Maui.Controls.Compatibility.pri</PackagePath>

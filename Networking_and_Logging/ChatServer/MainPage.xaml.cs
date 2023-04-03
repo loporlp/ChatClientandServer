@@ -45,6 +45,10 @@ namespace ChatServer
         public void onDisconnect(Networking channel)
         {
 
+            string oldName = channel.ID + ": " + clientDict[channel];
+            ClientList.Text = ClientList.Text.Replace(oldName, "");
+
+            clientDict.Remove(channel);
         }
 
         public void onConnect(Networking channel) 
@@ -58,15 +62,54 @@ namespace ChatServer
 
         public void onMessage(Networking channel, string message)
         {
-            Dispatcher.Dispatch(() => MessageList.Text =  MessageList.Text += $"{channel.ID}: {message} \n");
+
+            if(message.StartsWith("Command Participants"))
+            {
+                string partPacket = "Command Participants,";
+                foreach(KeyValuePair<Networking,string> kvp in clientDict)
+                {
+                    partPacket += kvp.Key.ID + ",";
+                }
+
+                channel.Send(partPacket);
+
+            }
 
             if(message.StartsWith("Command Name"))
             {
+                string oldNameWithoutIP = channel.ID;
+                Dispatcher.Dispatch(() => MessageList.Text = MessageList.Text += $"{oldNameWithoutIP}: {message} \n");
+                string oldName = channel.ID + ": " + clientDict[channel];
+
                 int i = message.IndexOf('e') + 2;
-                string name = message.Substring(i);
-                Console.WriteLine(name);
+                string nameWithoutIP = message.Substring(i);
+                string name = message.Substring(i) + ": " + clientDict[channel] + "\n";
+
+                if (ClientList.Text is null)
+                {
+                    ClientList.Text = "";
+                }
+                    
+                string listOfNames = ClientList.Text;
+                listOfNames = listOfNames.Replace(oldName, "");
+                listOfNames = listOfNames.Replace("\r", "");
+                listOfNames += name + "\n";
+
+
+                ClientList.Text = listOfNames;
+
+
+                channel.ID = nameWithoutIP;
+
+
+                return;
+                
+
 
             }
+
+            Dispatcher.Dispatch(() => MessageList.Text = MessageList.Text += $"{channel.ID}: {message} \n");
+
 
             List<Networking> toRemove = new();
             List<Networking> toSendTo = new();

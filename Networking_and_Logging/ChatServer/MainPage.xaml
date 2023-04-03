@@ -13,9 +13,9 @@
 			Padding="20">
                     <Label Text="PARTICIPANTS" HorizontalOptions="Center" FontSize="20" Margin="10"></Label>
                     
-                    <Entry x:Name="ClientList"  HeightRequest="400" WidthRequest="250" BackgroundColor="MintCream" VerticalTextAlignment="Start" IsEnabled="False">
+                    <Editor x:Name="ClientList"  HeightRequest="400" WidthRequest="250" BackgroundColor="MintCream" VerticalTextAlignment="Start" IsEnabled="False" TextColor="Black">
                        
-                    </Entry>
+                    </Editor>
 
 
                     <BoxView Color="White" HeightRequest="50" WidthRequest="1" />
@@ -50,9 +50,9 @@
 
                     <HorizontalStackLayout>
 
-                        <Entry x:Name="MessageList"  HeightRequest="500" WidthRequest="500" BackgroundColor="MintCream" Margin="20" VerticalTextAlignment="Start" IsEnabled="False">
+                        <Editor x:Name="MessageList"  HeightRequest="500" WidthRequest="500" BackgroundColor="MintCream" Margin="20" VerticalTextAlignment="Start" IsEnabled="False" TextColor="Black">
                        
-                    </Entry>
+                    </Editor>
 
                     </HorizontalStackLayout>
                     
