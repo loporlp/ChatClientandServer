@@ -11,11 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileLogger", "FileLogger\Fi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{FFB4EE53-1749-4445-BF61-D8EC905EA9FB}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\Downloads\Communications.dll = ..\..\..\..\Downloads\Communications.dll
 		..\..\..\..\Downloads\Communications.xml = ..\..\..\..\Downloads\Communications.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communications", "Communications\Communications.csproj", "{66194A10-3F89-4DFB-AF22-B7461F45EA00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Communications", "Communications\Communications.csproj", "{66194A10-3F89-4DFB-AF22-B7461F45EA00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

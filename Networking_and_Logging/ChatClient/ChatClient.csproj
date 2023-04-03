@@ -53,9 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="Communications">
-	    <HintPath>..\..\..\..\..\Downloads\Communications.dll</HintPath>
-	  </Reference>
+	  <ProjectReference Include="..\Communications\Communications.csproj" />
 	</ItemGroup>
 
 </Project>

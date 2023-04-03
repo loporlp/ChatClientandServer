@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿ <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
@@ -54,9 +54,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="Communications">
-			<HintPath>..\..\..\..\..\Downloads\Communications.dll</HintPath>
-		</Reference>
+	  <ProjectReference Include="..\Communications\Communications.csproj" />
 	</ItemGroup>
+
 
 </Project>

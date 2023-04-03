@@ -66,7 +66,7 @@ public partial class MainPage : ContentPage
     /// <param name="channel"></param>
     void onDisconnect(Networking channel)
     {
-        addMessageAndScroll($"Disconnected from {channel.ID}");
+        addMessageAndScroll("Disconnected from Server");
         connectButton.IsVisible = true;
         connectLabel.IsVisible = false;
     }

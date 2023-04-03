@@ -12,7 +12,6 @@ namespace ChatServer
    
     public partial class MainPage : ContentPage
     {
-        int count = 0;
         private Dictionary<Networking, string> clientDict;
         private Networking channel;
 
@@ -45,6 +44,16 @@ namespace ChatServer
         public void onDisconnect(Networking channel)
         {
 
+            if(channel == this.channel)
+            {
+                foreach(Networking client in clientDict.Keys)
+                {
+                    client.Disconnect();
+                }
+                clientDict.Clear();
+                return;
+            }
+
             string oldName = channel.ID + ": " + clientDict[channel];
             ClientList.Text = ClientList.Text.Replace(oldName, "");
 
@@ -57,6 +66,8 @@ namespace ChatServer
             {
               clientDict.Add(channel, channel.ID);
             }
+
+            channel.AwaitMessagesAsync();
             //display in message widnow connection established
         }
 
@@ -79,7 +90,7 @@ namespace ChatServer
             if(message.StartsWith("Command Name"))
             {
                 string oldNameWithoutIP = channel.ID;
-                Dispatcher.Dispatch(() => MessageList.Text = MessageList.Text += $"{oldNameWithoutIP}: {message} \n");
+                Dispatcher.Dispatch(() => MessageList.Text = MessageList.Text += $"{oldNameWithoutIP} - {message} \n");
                 string oldName = channel.ID + ": " + clientDict[channel];
 
                 int i = message.IndexOf('e') + 2;
@@ -109,7 +120,7 @@ namespace ChatServer
 
             }
 
-            Dispatcher.Dispatch(() => MessageList.Text = MessageList.Text += $"{channel.ID}: {message} \n");
+            Dispatcher.Dispatch(() => MessageList.Text = MessageList.Text += $"{channel.ID} - {message} \n");
 
 
             List<Networking> toRemove = new();
@@ -139,7 +150,7 @@ namespace ChatServer
                 {
                     try
                     {
-                      client.Send($"{channel.ID}: {message}");
+                      client.Send($"{channel.ID} - {message}");
                     }
                     catch (Exception)
                     {
@@ -167,6 +178,6 @@ namespace ChatServer
             channel.StopWaitingForClients();
             channel.Disconnect();
         }
-
+        
     }
 }
