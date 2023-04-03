@@ -1,39 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ChatServer.MainPage">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="ChatServer.MainPage" Title = "SERVER INTERFACE">
 
     <ScrollView>
         <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+            Spacing="0"
+            Padding="0"
+            VerticalOptions="Fill">
+            <HorizontalStackLayout>
+                <VerticalStackLayout VerticalOptions="End"	Spacing="0"
+			Padding="20">
+                    <Label Text="PARTICIPANTS" HorizontalOptions="Center" FontSize="20" Margin="10"></Label>
+                    
+                    <ListView x:Name="ClientList" ItemsSource="{Binding obvList}" HeightRequest="400" WidthRequest="250" BackgroundColor="MintCream">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label x:Name="listItems" Text="{Binding}" TextColor="MintCream" HorizontalOptions="Center"></Label>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+                    <BoxView Color="White" HeightRequest="50" WidthRequest="1" />
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+                    <Button Text="Shutdown Server" Clicked="Disconnect"></Button>
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+
+                <BoxView Color="White" HeightRequest="200" WidthRequest="400" />
+
+
+                <VerticalStackLayout  
+                    Spacing="0"
+                    Padding="0"
+                    HorizontalOptions="End">
+
+                    <HorizontalStackLayout>
+                        <BoxView Color="White" HeightRequest="1" WidthRequest="30" />
+                        <Label x:Name="serverName" VerticalOptions="Center" Margin="10">Server Name</Label>
+                        <Label HeightRequest="5" WidthRequest="400"> </Label>
+                    </HorizontalStackLayout>
+
+                    <BoxView Color="White" HeightRequest="25" WidthRequest="5" />
+
+
+                    <HorizontalStackLayout>
+                        <BoxView Color="White" HeightRequest="1" WidthRequest="30" />
+                        <Label x:Name="serverIP" VerticalOptions="Center" Margin="10">Server IP</Label>
+                        <Label HeightRequest="5" WidthRequest="400"></Label>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+
+
+
+                        <ListView x:Name="MessageList" ItemsSource="{Binding messagesObvList}" HeightRequest="500" WidthRequest="500" BackgroundColor="MintCream" Margin="20" HorizontalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label x:Name="listItems" Text="{Binding}" TextColor="Black" HorizontalOptions="Center"></Label>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    </HorizontalStackLayout>
+                    
+                </VerticalStackLayout>
+                
+                
+
+            </HorizontalStackLayout>
+            
+            
+
+
+         
 
         </VerticalStackLayout>
     </ScrollView>
