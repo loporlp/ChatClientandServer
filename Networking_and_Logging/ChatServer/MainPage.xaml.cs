@@ -14,11 +14,13 @@ namespace ChatServer
     {
         private Dictionary<Networking, string> clientDict;
         private Networking channel;
+        private readonly ILogger<MainPage> _logger;
 
-        public MainPage()
+        public MainPage(ILogger<MainPage> logger)
         {
+            _logger = logger;
             InitializeComponent();
-            channel = new(NullLogger.Instance, onConnect, onDisconnect, onMessage, '\n');
+            channel = new(logger, onConnect, onDisconnect, onMessage, '\n');
             channel.WaitForClients(11000, true);
             clientDict = new Dictionary<Networking, string>();
 
@@ -40,7 +42,11 @@ namespace ChatServer
         }
 
 
-  
+        /// <summary>
+        ///     When a client disconnects remove client from list and send a message
+        ///     if server disconnects disconnect all clients and stop waiting for messages
+        /// </summary>
+        /// <param name="channel"></param>
         public void onDisconnect(Networking channel)
         {
 
@@ -60,6 +66,11 @@ namespace ChatServer
             clientDict.Remove(channel);
         }
 
+        /// <summary>
+        ///     When a client connects to the server add it to the client list
+        ///     then await messages
+        /// </summary>
+        /// <param name="channel"></param>
         public void onConnect(Networking channel) 
         {
             lock (clientDict)
@@ -71,6 +82,12 @@ namespace ChatServer
             //display in message widnow connection established
         }
 
+        /// <summary>
+        ///     When the server recieves a message check if its a command
+        ///     and do the appropirate command or send message to all clients
+        /// </summary>
+        /// <param name="channel"> client who sent message </param>
+        /// <param name="message"> message sent </param>
         public void onMessage(Networking channel, string message)
         {
 
@@ -140,11 +157,7 @@ namespace ChatServer
                     }
                 }
 
-                // Iterate over "saved" list of clients
-                //
-                // Question: Why can't we lock clients around this loop?
-                //
-                Console.WriteLine($"  Sending a message of size ({message.Length}) to {toSendTo.Count} clients");
+                _logger.LogInformation($"  Sending a message of size ({message.Length}) to {toSendTo.Count} clients");
 
                 foreach (Networking client in toSendTo)
                 {
@@ -172,7 +185,11 @@ namespace ChatServer
             }
 
 
-
+        /// <summary>
+        ///     Disconnect the TcpClient
+        /// </summary>
+        /// <param name="sender"> unused </param>
+        /// <param name="e"> unused </param>
         private void Disconnect(object sender, EventArgs e)
         {
             channel.StopWaitingForClients();

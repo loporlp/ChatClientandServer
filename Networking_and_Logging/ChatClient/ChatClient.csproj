@@ -54,6 +54,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Communications\Communications.csproj" />
+	  <ProjectReference Include="..\FileLogger\FileLogger.csproj" />
 	</ItemGroup>
 
 </Project>

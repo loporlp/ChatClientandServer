@@ -1,4 +1,5 @@
 ﻿using Communications;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,12 +15,11 @@ public partial class MainPage : ContentPage
     private ObservableCollection<string> clientList;
     private ObservableCollection<string> messages;
     private Networking channel;
+    private readonly ILogger<MainPage> _logger;
 
-    /// <summary>
-    ///     Initializes the page and all fields
-    /// </summary>
-    public MainPage()
+    public MainPage(ILogger<MainPage> logger)
     {
+        _logger = logger;
         InitializeComponent();
         clientList = new ObservableCollection<string>();
         messages = new ObservableCollection<string>();
@@ -89,7 +89,7 @@ public partial class MainPage : ContentPage
         
         try
         {
-            channel = new Networking(NullLogger.Instance, onConnect, onDisconnect, onMessage, '\n');
+            channel = new Networking(_logger, onConnect, onDisconnect, onMessage, '\n');
             channel.Connect(address.Text, 11000);
             addMessageAndScroll("Connected To Server!");
             channel.AwaitMessagesAsync(infinite: true);

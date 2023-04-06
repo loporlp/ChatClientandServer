@@ -142,7 +142,7 @@ namespace Communications
 
                         dataBacklog.Append(current_data);
 
-                        Console.WriteLine($"  Received {total} new bytes for a total of {dataBacklog.Length}.");
+                        logger.LogInformation($"  Received {total} new bytes for a total of {dataBacklog.Length}.");
 
                         this.CheckForMessage(dataBacklog);
                     }
@@ -188,10 +188,7 @@ namespace Communications
             }
             else
             {
-                logger.LogInformation(
-                    $"  --------------------------------------------------------------------------------\n" +
-                    $"  After Message: {data.Length} bytes unprocessed.\n" +
-                    $"  --------------------------------------------------------------------------------\n");
+                logger.LogDebug($" After Message: {data.Length} bytes unprocessed."); 
             }
         }
 
@@ -225,6 +222,9 @@ namespace Communications
             }
         }
 
+        /// <summary>
+        ///   Disconnect TcpClient from network
+        /// </summary>
         public void Disconnect()
         {
             onDisconnect(this);
