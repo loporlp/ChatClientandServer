@@ -117,9 +117,9 @@ namespace Communications
                     }
                 }
             }
-            catch (Exception)
+            catch (System.OperationCanceledException)
             {
-                return;
+                logger.LogInformation("Stoped Looking for clients");
             }
         }
 

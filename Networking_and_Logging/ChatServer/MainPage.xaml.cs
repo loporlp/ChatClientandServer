@@ -69,14 +69,21 @@ namespace ChatServer
 
             if(channel == this.channel)
             {
-                foreach(Networking client in clientDict.Keys)
+                lock (clientDict) 
                 {
-                    client.Disconnect();
+                    foreach (Networking client in clientDict.Keys)
+                    {
+                        client.Disconnect();
+                    }
+
                 }
-                clientDict.Clear();
                 return;
             }
 
+            if (!clientDict.Keys.Contains(channel))
+            {
+                return;
+            }
             string oldName = channel.ID + ": " + clientDict[channel];
             ClientList.Text = ClientList.Text.Replace(oldName, "");
 
