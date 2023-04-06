@@ -5,6 +5,25 @@ using System.Text;
 
 namespace Communications
 {
+    /// <summary>
+    /// Author: Mason Sansom
+    /// Partner: Druv Rachakonda
+    /// Date: 3-Mar-2023
+    /// Course:    CS 3500, University of Utah, School of Computing
+    /// Copyright: CS 3500 and Mason Sansom - This work may not 
+    ///            be copied for use in Academic Coursework.
+    ///
+    /// We, Mason Sansom and Druve Rachakonda, certify that we wrote this code from scratch and
+    /// All references used in the completion of the assignments are cited 
+    /// in the README file.
+    ///
+    /// File Contents
+    /// 
+    /// This class represents the Networking object used by both the client
+    /// and the server objects
+    /// it creates a connection between two tcp Clients and allows them to send messages
+    /// between each other
+    /// <summary/>
     public class Networking
     {
         public delegate void ReportMessageArrived(Networking channel, string message);

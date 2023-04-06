@@ -8,7 +8,24 @@ using System.Text;
 using System.Threading.Channels;
 
 namespace ChatClient;
-
+/// <summary>
+/// Author: Mason Sansom
+/// Partner: Druv Rachakonda
+/// Date: 3-Mar-2023
+/// Course:    CS 3500, University of Utah, School of Computing
+/// Copyright: CS 3500 and Mason Sansom - This work may not 
+///            be copied for use in Academic Coursework.
+///
+/// We, Mason Sansom and Druve Rachakonda, certify that we wrote this code from scratch and
+/// All references used in the completion of the assignments are cited 
+/// in the README file.
+///
+/// File Contents
+/// 
+/// This class contains the GUI for the Chat client.
+/// The Gui controls what is displayed when a client connects to a server and sends 
+/// messages, also displays any messages it recieves from the server
+/// </summary>
 public partial class MainPage : ContentPage
 {
 

@@ -8,8 +8,25 @@ using System.Text;
 
 namespace ChatServer
 {
+    /// <summary>
+    /// Author: Mason Sansom
+    /// Partner: Druv Rachakonda
+    /// Date: 3-Mar-2023
+    /// Course:    CS 3500, University of Utah, School of Computing
+    /// Copyright: CS 3500 and Mason Sansom - This work may not 
+    ///            be copied for use in Academic Coursework.
+    ///
+    /// We, Mason Sansom and Druve Rachakonda, certify that we wrote this code from scratch and
+    /// All references used in the completion of the assignments are cited 
+    /// in the README file.
+    ///
+    /// File Contents
+    /// 
+    /// This class contains the GUI for the server object
+    /// the server handles connections coming in from client objects and relays
+    /// any messages sent to all clients connected to server. Default port is 11000
+    /// </summary>
 
-   
     public partial class MainPage : ContentPage
     {
         private Dictionary<Networking, string> clientDict;
