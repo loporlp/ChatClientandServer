@@ -20,7 +20,7 @@
 
                     <BoxView Color="White" HeightRequest="50" WidthRequest="1" />
 
-                    <Button Text="Shutdown Server" Clicked="Disconnect"></Button>
+                    <Button x:Name="discon" Text="Shutdown Server" Clicked="Disconnect"></Button>
 
 
                 </VerticalStackLayout>

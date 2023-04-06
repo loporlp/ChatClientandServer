@@ -138,8 +138,8 @@ namespace ChatServer
                     
                 string listOfNames = ClientList.Text;
                 listOfNames = listOfNames.Replace(oldName, "");
-                listOfNames = listOfNames.Replace("\r", "");
-                listOfNames += name + "\n";
+                listOfNames = listOfNames.Replace("\r", "\n");
+                listOfNames += name;
 
 
                 ClientList.Text = listOfNames;
@@ -209,8 +209,18 @@ namespace ChatServer
         /// <param name="e"> unused </param>
         private void Disconnect(object sender, EventArgs e)
         {
-            channel.StopWaitingForClients();
-            channel.Disconnect();
+
+            try
+            {
+                channel.StopWaitingForClients();
+                channel.Disconnect();
+            }
+
+            //An attempt to avert a crash when the server is attempted to shutdown
+            catch(Exception) {
+                discon.Text = "Start Server";
+            }
+
         }
         
     }
