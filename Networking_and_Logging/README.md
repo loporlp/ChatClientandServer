@@ -20,7 +20,9 @@ to do was update a list and the item added would be put on the GUI in a nice ani
 this for the server because it was a little less work and looks weren't as big of a priority
 
 Most of this project was done using pair programming but the Networking branch was made to go work on the 
-Networking object while the main branch could still use the .dll file for testing purposes.
+Networking object while the main branch could still use the .dll file for testing purposes. The Networking branch was
+never officially merged because of a missing .gitignore but the code was moved over successfully
+when fixing the issue.
 
 We tested this project by writing down all the possible edge cases we think could be contained in it 
 then trying to make them happen. We also placed many breakpoints and tried to trigger them so we would
