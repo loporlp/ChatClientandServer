@@ -37,7 +37,7 @@ namespace ChatServer
         {
             _logger = logger;
             InitializeComponent();
-            channel = new(logger, onConnect, onDisconnect, onMessage, '\n');
+            channel = new(_logger, onConnect, onDisconnect, onMessage, '\n');
             channel.WaitForClients(11000, true);
             clientDict = new Dictionary<Networking, string>();
 
@@ -55,7 +55,7 @@ namespace ChatServer
             }
 
 
-            serverName.Text = "SERVER NAME: " +  System.Environment.MachineName;
+            serverName.Text = "SERVER NAME: " + System.Environment.MachineName;
         }
 
 
@@ -67,9 +67,9 @@ namespace ChatServer
         public void onDisconnect(Networking channel)
         {
 
-            if(channel == this.channel)
+            if (channel == this.channel)
             {
-                lock (clientDict) 
+                lock (clientDict)
                 {
                     foreach (Networking client in clientDict.Keys)
                     {
@@ -95,11 +95,11 @@ namespace ChatServer
         ///     then await messages
         /// </summary>
         /// <param name="channel"></param>
-        public void onConnect(Networking channel) 
+        public void onConnect(Networking channel)
         {
             lock (clientDict)
             {
-              clientDict.Add(channel, channel.ID);
+                clientDict.Add(channel, channel.ID);
             }
 
             channel.AwaitMessagesAsync();
@@ -115,10 +115,10 @@ namespace ChatServer
         public void onMessage(Networking channel, string message)
         {
 
-            if(message.StartsWith("Command Participants"))
+            if (message.StartsWith("Command Participants"))
             {
                 string partPacket = "Command Participants,";
-                foreach(KeyValuePair<Networking,string> kvp in clientDict)
+                foreach (KeyValuePair<Networking, string> kvp in clientDict)
                 {
                     partPacket += kvp.Key.ID + ",";
                 }
@@ -128,7 +128,7 @@ namespace ChatServer
 
             }
 
-            if(message.StartsWith("Command Name"))
+            if (message.StartsWith("Command Name"))
             {
                 string oldNameWithoutIP = channel.ID;
                 Dispatcher.Dispatch(() => MessageList.Text = MessageList.Text += $"{oldNameWithoutIP} - {message} \n");
@@ -142,7 +142,7 @@ namespace ChatServer
                 {
                     ClientList.Text = "";
                 }
-                    
+
                 string listOfNames = ClientList.Text;
                 listOfNames = listOfNames.Replace(oldName, "");
                 listOfNames = listOfNames.Replace("\r", "\n");
@@ -156,7 +156,7 @@ namespace ChatServer
 
 
                 return;
-                
+
 
 
             }
@@ -167,46 +167,46 @@ namespace ChatServer
             List<Networking> toRemove = new();
             List<Networking> toSendTo = new();
 
-        
-              
-                //
-                // Cannot have clients adding while we send messages, so make a copy of the
-                // current list of clients.
-                //
-                lock (clientDict)
+
+
+            //
+            // Cannot have clients adding while we send messages, so make a copy of the
+            // current list of clients.
+            //
+            lock (clientDict)
+            {
+                foreach (Networking client in clientDict.Keys)
                 {
-                    foreach(Networking client in clientDict.Keys)
-                    {
-                        toSendTo.Add(client);
-                    }
+                    toSendTo.Add(client);
                 }
-
-                _logger.LogInformation($"  Sending a message of size ({message.Length}) to {toSendTo.Count} clients");
-
-                foreach (Networking client in toSendTo)
-                {
-                    try
-                    {
-                      client.Send($"{channel.ID} - {message}");
-                    }
-                    catch (Exception)
-                    {
-                      toRemove.Add(client);
-                    }
-                }
-
-                lock (clientDict)
-                {
-                    // update list of "current" clients by removing closed clients
-                    foreach (Networking client in toRemove)
-                    {                     
-                        clientDict.Remove(client);              
-                    }
-                }
-
-                toSendTo.Clear();
-                toRemove.Clear();
             }
+
+            _logger.LogInformation($"  Sending a message of size ({message.Length}) to {toSendTo.Count} clients");
+
+            foreach (Networking client in toSendTo)
+            {
+                try
+                {
+                    client.Send($"{channel.ID} - {message}");
+                }
+                catch (Exception)
+                {
+                    toRemove.Add(client);
+                }
+            }
+
+            lock (clientDict)
+            {
+                // update list of "current" clients by removing closed clients
+                foreach (Networking client in toRemove)
+                {
+                    clientDict.Remove(client);
+                }
+            }
+
+            toSendTo.Clear();
+            toRemove.Clear();
+        }
 
 
         /// <summary>
@@ -216,19 +216,25 @@ namespace ChatServer
         /// <param name="e"> unused </param>
         private void Disconnect(object sender, EventArgs e)
         {
-
-            try
-            {
-                channel.StopWaitingForClients();
-                channel.Disconnect();
-            }
-
-            //An attempt to avert a crash when the server is attempted to shutdown
-            catch(Exception) {
-                discon.Text = "Start Server";
-            }
+            discon.IsVisible = false;
+            recon.IsVisible = true;
+            channel.StopWaitingForClients();
+            channel.Disconnect();
 
         }
-        
+
+        /// <summary>
+        ///     Restart the server after it has be shutdown
+        /// </summary>
+        /// <param name="sender"> unused </param>
+        /// <param name="e"> unused </param>
+        private void Restart(object sender, EventArgs e)
+        {
+          //  channel = new(_logger, onConnect, onDisconnect, onMessage, '\n');
+            channel.WaitForClients(11000, true);
+            discon.IsVisible = true;
+            recon.IsVisible = false;
+        }
+
     }
 }

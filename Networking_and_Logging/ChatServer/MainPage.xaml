@@ -12,15 +12,16 @@
                 <VerticalStackLayout VerticalOptions="End"	Spacing="0"
 			Padding="20">
                     <Label Text="PARTICIPANTS" HorizontalOptions="Center" FontSize="20" Margin="10"></Label>
-                    
+
                     <Editor x:Name="ClientList"  HeightRequest="400" WidthRequest="250" BackgroundColor="MintCream" VerticalTextAlignment="Start" IsEnabled="False" TextColor="Black">
-                       
+
                     </Editor>
 
 
                     <BoxView Color="White" HeightRequest="50" WidthRequest="1" />
 
                     <Button x:Name="discon" Text="Shutdown Server" Clicked="Disconnect"></Button>
+                    <Button x:Name="recon" Text="Restart Server" Clicked="Restart" IsVisible="False"></Button>
 
 
                 </VerticalStackLayout>
@@ -36,7 +37,7 @@
                     <HorizontalStackLayout>
                         <BoxView Color="White" HeightRequest="1" WidthRequest="30" />
                         <Label x:Name="serverName" VerticalOptions="Center" Margin="10">Server Name</Label>
-                        <Label HeightRequest="5" WidthRequest="400"> </Label>
+                        <Label HeightRequest="5" WidthRequest="400"></Label>
                     </HorizontalStackLayout>
 
                     <BoxView Color="White" HeightRequest="25" WidthRequest="5" />
@@ -51,21 +52,16 @@
                     <HorizontalStackLayout>
 
                         <Editor x:Name="MessageList"  HeightRequest="500" WidthRequest="500" BackgroundColor="MintCream" Margin="20" VerticalTextAlignment="Start" IsEnabled="False" TextColor="Black">
-                       
-                    </Editor>
+
+                        </Editor>
 
                     </HorizontalStackLayout>
-                    
+
                 </VerticalStackLayout>
-                
-                
+
+
 
             </HorizontalStackLayout>
-            
-            
-
-
-         
 
         </VerticalStackLayout>
     </ScrollView>
